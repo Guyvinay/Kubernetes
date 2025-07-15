@@ -19,6 +19,7 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 | `minikube addons enable <addon>`       | Enables an addon (e.g., ingress).               | `minikube addons enable ingress`       |
 | `minikube ssh`                         | SSH into the Minikube VM.                       | `minikube ssh`                         |
 | `minikube service nginx-service --url` | Gets the url to access the running deployment   | `minikube service nginx-service --url` |
+| `minikube image load <docker-image>`   | Loads the locally build images in minikube env  | `minikube image load dev-auth:latest`  |
 
 
 ---
@@ -77,11 +78,13 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ### Context & Namespace Management
 
-| Command                               | Description                       | Example                               |
-|---------------------------------------|-----------------------------------|---------------------------------------|
-| `kubectl config use-context minikube` | Switch context to Minikube.       | `kubectl config use-context minikube` |
-| `kubectl config get-contexts`         | View available contexts.          | `kubectl config get-contexts`         |
-| `kubectl get pods -n <namespace>`     | Get pods in a specific namespace. | `kubectl get pods -n kube-system`     |
+| Command                                        | Description                        | Example                                       |
+|------------------------------------------------|------------------------------------|-----------------------------------------------|
+| `kubectl config use-context minikube`          | Switch context to Minikube.        | `kubectl config use-context minikube`         |
+| `kubectl config get-contexts`                  | View available contexts.           | `kubectl config get-contexts`                 |
+| `kubectl get pods -n <namespace>`              | Get pods in a specific namespace.  | `kubectl get pods -n kube-system`             |
+| `kubectl rollout restart deployment <pod-name> | Restarts the already runninng pod. | `kubectl rollout restart deployment dev-auth` |
+
 
 
 ---
