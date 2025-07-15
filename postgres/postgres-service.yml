@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service  # Internal ClusterIP service for dev-auth app to connect to
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432           # Port inside the cluster
+      targetPort: 5432     # Port on the postgres container
+  type: ClusterIP          # Internal-only service (not exposed to outside)

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1              # Single DB pod (for dev/local)
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15  # Official Postgres image
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: dev_auth     # DB name to be created
+            - name: POSTGRES_USER
+              value: vinay        # Username
+            - name: POSTGRES_PASSWORD
+              value: vinaypass    # Password (store in Secret in prod)
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data  # Persist DB data
+      volumes:
+        - name: pgdata
+          emptyDir: {}            # ⚠️ Ephemeral. Use PersistentVolume in prod

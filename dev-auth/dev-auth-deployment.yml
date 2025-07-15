@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dev-auth
+  template:
+    metadata:
+      labels:
+        app: dev-auth
+    spec:
+      containers:
+        - name: dev-auth
+          image: vinay/dev-auth:1.0.0  # 🔁 Replace with your Docker image name
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-service:5432/dev_auth
+            - name: SPRING_DATASOURCE_USERNAME
+              value: vinay
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: vinaypass
