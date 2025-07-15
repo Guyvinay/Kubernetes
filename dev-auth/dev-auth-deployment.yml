@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: dev-auth
-          image: dev-auth:latest  # Replace with your Docker image name
+          image: dev-auth:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 8000
           env:
