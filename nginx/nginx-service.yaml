@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: NodePort              # Exposes the service on a port on the minikube VM
+  selector:
+    app: nginx                # Match pods with this label (from deployment)
+  ports:
+    - protocol: TCP
+      port: 80                # Port for service inside the cluster
+      targetPort: 80          # Port inside the container (nginx)
+      nodePort: 30080         # Port exposed on minikube VM (external access)
