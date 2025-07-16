@@ -3,7 +3,7 @@
 A handy reference for essential Minikube and Kubernetes commands with explanations and examples.
 
 ---
-# 🧱 Minikube Commands
+# Minikube Commands
 
 | Command                           | Description                                       | Example                                |
 |-----------------------------------|---------------------------------------------------|----------------------------------------|
@@ -25,9 +25,9 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
-# ⚙️ Kubernetes (`kubectl`) Commands
+# Kubernetes (`kubectl`) Commands
 
-## 🔍 View Resources
+## View Resources
 
 | Command                                                    | Description                                   | Example                            |
 |------------------------------------------------------------|-----------------------------------------------|------------------------------------|
@@ -41,7 +41,7 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
-## 📦 Create / Apply / Update Resources
+## Create / Apply / Update Resources
 
 | Command                           | Description                             | Example                                     |
 |-----------------------------------|-----------------------------------------|---------------------------------------------|
@@ -53,7 +53,7 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
-## 🗑️ Delete Resources
+## Delete Resources
 
 | Command                            | Description                                 | Example                               |
 |------------------------------------|---------------------------------------------|---------------------------------------|
@@ -67,7 +67,7 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
-## 📄 Logs & Debugging
+## Logs & Debugging
 
 | Command                               | Description                                | Example                                       |
 |---------------------------------------|--------------------------------------------|-----------------------------------------------|
@@ -80,7 +80,7 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
-## 🌐 Networking & Port Forwarding
+## Networking & Port Forwarding
 
 | Command                                            | Description                       | Example                                                     |
 |----------------------------------------------------|-----------------------------------|-------------------------------------------------------------|
@@ -91,7 +91,7 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
-## 📂 Config, Context & Namespace
+## Config, Context & Namespace
 
 | Command                                                 | Description                                | Example                                                |
 |---------------------------------------------------------|--------------------------------------------|--------------------------------------------------------|
@@ -105,7 +105,7 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
-## 🔄 Rolling Updates & Scale
+## Rolling Updates & Scale
 
 | Command                                        | Description                           | Example                                          |
 |------------------------------------------------|---------------------------------------|--------------------------------------------------|
