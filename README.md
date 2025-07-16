@@ -41,6 +41,30 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
+## 🔎 Get All Kubernetes Resources (Including Configs and Secrets)
+
+| Command                                                              | Description                                         | Example                                                              |
+|----------------------------------------------------------------------|-----------------------------------------------------|----------------------------------------------------------------------|
+| `kubectl get pods`                                                   | Lists all Pods.                                     | `kubectl get pods`                                                   |
+| `kubectl get svc`                                                    | Lists all Services.                                 | `kubectl get svc`                                                    |
+| `kubectl get deployments`                                            | Lists all Deployments.                              | `kubectl get deployments`                                            |
+| `kubectl get rs`                                                     | Lists all ReplicaSets.                              | `kubectl get rs`                                                     |
+| `kubectl get cm`                                                     | Lists all ConfigMaps.                               | `kubectl get cm`                                                     |
+| `kubectl get secret`                                                 | Lists all Secrets.                                  | `kubectl get secret`                                                 |
+| `kubectl get pvc`                                                    | Lists all Persistent Volume Claims.                 | `kubectl get pvc`                                                    |
+| `kubectl get pv`                                                     | Lists all Persistent Volumes.                       | `kubectl get pv`                                                     |
+| `kubectl get ingress`                                                | Lists all Ingress resources.                        | `kubectl get ingress`                                                |
+| `kubectl get job`                                                    | Lists all batch Jobs.                               | `kubectl get job`                                                    |
+| `kubectl get cronjob`                                                | Lists all scheduled CronJobs.                       | `kubectl get cronjob`                                                |
+| `kubectl get sa`                                                     | Lists all ServiceAccounts.                          | `kubectl get sa`                                                     |
+| `kubectl get hpa`                                                    | Lists all Horizontal Pod Autoscalers.               | `kubectl get hpa`                                                    |
+| `kubectl get all`                                                    | Lists core workloads (pods, svc, deploy, rs).       | `kubectl get all`                                                    |
+| `kubectl get all,cm,secret,pvc,ingress,job,cronjob`                  | Lists all key workload and configuration resources. | `kubectl get all,cm,secret,pvc,ingress,job,cronjob`                  |
+| `kubectl get all,cm,secret,pvc,ingress,job,cronjob -n <namespace>`   | Same as above but for a specific namespace.         | `kubectl get all,cm,secret,pvc,ingress,job,cronjob -n dev`           |
+| `kubectl get all,cm,secret,pvc,ingress,job,cronjob --all-namespaces` | Lists everything across all namespaces.             | `kubectl get all,cm,secret,pvc,ingress,job,cronjob --all-namespaces` |
+
+---
+
 ## Create / Apply / Update Resources
 
 | Command                           | Description                             | Example                                     |
@@ -64,6 +88,24 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 | `kubectl delete all --all`         | Deletes all resources in current namespace. | `kubectl delete all --all`            |
 | `kubectl delete configmap <name>`  | Deletes a ConfigMap.                        | `kubectl delete configmap my-config`  |
 | `kubectl delete secret <name>`     | Deletes a Secret.                           | `kubectl delete secret my-secret`     |
+
+---
+
+## 🗑️ Delete All Kubernetes Resources
+
+| Command                                                             | Description                                              | Example                                                             |
+|---------------------------------------------------------------------|----------------------------------------------------------|---------------------------------------------------------------------|
+| `kubectl delete all --all`                                          | Deletes all core resources (pods, svc, deploy, rs, etc.) | `kubectl delete all --all`                                          |
+| `kubectl delete cm --all`                                           | Deletes all ConfigMaps in the current namespace          | `kubectl delete cm --all`                                           |
+| `kubectl delete secret --all`                                       | Deletes all Secrets in the current namespace             | `kubectl delete secret --all`                                       |
+| `kubectl delete pvc --all`                                          | Deletes all Persistent Volume Claims                     | `kubectl delete pvc --all`                                          |
+| `kubectl delete ingress --all`                                      | Deletes all Ingress resources                            | `kubectl delete ingress --all`                                      |
+| `kubectl delete job --all`                                          | Deletes all Jobs                                         | `kubectl delete job --all`                                          |
+| `kubectl delete cronjob --all`                                      | Deletes all CronJobs                                     | `kubectl delete cronjob --all`                                      |
+| `kubectl delete hpa --all`                                          | Deletes all Horizontal Pod Autoscalers                   | `kubectl delete hpa --all`                                          |
+| `kubectl delete sa --all`                                           | Deletes all ServiceAccounts                              | `kubectl delete sa --all`                                           |
+| `kubectl delete all,cm,secret,pvc,ingress,job,cronjob,hpa,sa --all` | Delete everything in one command                         | `kubectl delete all,cm,secret,pvc,ingress,job,cronjob,hpa,sa --all` |
+| `kubectl delete ns <namespace>`                                     | Deletes a specific namespace and everything in it        | `kubectl delete ns dev`                                             |
 
 ---
 
