@@ -91,6 +91,24 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
+## 🗑️ Delete All Kubernetes Resources
+
+| Command                                                             | Description                                              | Example                                                             |
+|---------------------------------------------------------------------|----------------------------------------------------------|---------------------------------------------------------------------|
+| `kubectl delete all --all`                                          | Deletes all core resources (pods, svc, deploy, rs, etc.) | `kubectl delete all --all`                                          |
+| `kubectl delete cm --all`                                           | Deletes all ConfigMaps in the current namespace          | `kubectl delete cm --all`                                           |
+| `kubectl delete secret --all`                                       | Deletes all Secrets in the current namespace             | `kubectl delete secret --all`                                       |
+| `kubectl delete pvc --all`                                          | Deletes all Persistent Volume Claims                     | `kubectl delete pvc --all`                                          |
+| `kubectl delete ingress --all`                                      | Deletes all Ingress resources                            | `kubectl delete ingress --all`                                      |
+| `kubectl delete job --all`                                          | Deletes all Jobs                                         | `kubectl delete job --all`                                          |
+| `kubectl delete cronjob --all`                                      | Deletes all CronJobs                                     | `kubectl delete cronjob --all`                                      |
+| `kubectl delete hpa --all`                                          | Deletes all Horizontal Pod Autoscalers                   | `kubectl delete hpa --all`                                          |
+| `kubectl delete sa --all`                                           | Deletes all ServiceAccounts                              | `kubectl delete sa --all`                                           |
+| `kubectl delete all,cm,secret,pvc,ingress,job,cronjob,hpa,sa --all` | Delete everything in one command                         | `kubectl delete all,cm,secret,pvc,ingress,job,cronjob,hpa,sa --all` |
+| `kubectl delete ns <namespace>`                                     | Deletes a specific namespace and everything in it        | `kubectl delete ns dev`                                             |
+
+---
+
 ## Logs & Debugging
 
 | Command                               | Description                                | Example                                       |
