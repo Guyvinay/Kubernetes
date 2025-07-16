@@ -7,6 +7,6 @@ spec:
   selector:
     app: dev-auth
   ports:
-    - port: 8080                  # Service port inside cluster
-      targetPort: 8080            # Port Spring Boot exposes
-      nodePort: 30080             # Exposed on minikube IP
+    - port: 8000                  # Service port inside cluster
+      targetPort: 8000            # Port Spring Boot exposes
+      nodePort: 30081             # Exposed on minikube IP

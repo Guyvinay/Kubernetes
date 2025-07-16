@@ -78,12 +78,12 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ### Context & Namespace Management
 
-| Command                                        | Description                        | Example                                       |
-|------------------------------------------------|------------------------------------|-----------------------------------------------|
-| `kubectl config use-context minikube`          | Switch context to Minikube.        | `kubectl config use-context minikube`         |
-| `kubectl config get-contexts`                  | View available contexts.           | `kubectl config get-contexts`                 |
-| `kubectl get pods -n <namespace>`              | Get pods in a specific namespace.  | `kubectl get pods -n kube-system`             |
-| `kubectl rollout restart deployment <pod-name> | Restarts the already runninng pod. | `kubectl rollout restart deployment dev-auth` |
+| Command                                         | Description                        | Example                                       |
+|-------------------------------------------------|------------------------------------|-----------------------------------------------|
+| `kubectl config use-context minikube`           | Switch context to Minikube.        | `kubectl config use-context minikube`         |
+| `kubectl config get-contexts`                   | View available contexts.           | `kubectl config get-contexts`                 |
+| `kubectl get pods -n <namespace>`               | Get pods in a specific namespace.  | `kubectl get pods -n kube-system`             |
+| `kubectl rollout restart deployment <pod-name>` | Restarts the already runninng pod. | `kubectl rollout restart deployment dev-auth` |
 
 
 
