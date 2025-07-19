@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: dev-auth
-          image: dev-auth:latest            # Local image
+          image: dev-auth:master            # Local image
           imagePullPolicy: Never            # Don't pull from Docker Hub (used with local build)
           ports:
             - containerPort: 8000           # Your Spring Boot app port
