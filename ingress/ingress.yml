@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1   # Kubernetes API group for networking resources
+kind: Ingress                      # We're defining an Ingress resource
+metadata:
+  name: dev-ingress                # Name of the Ingress object
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # ✳️ Annotation to rewrite the matched URL path before forwarding to the backend service.
+    # For example, "/auth/api/hello" becomes "/api/hello" for the dev-auth service.
+    # $2 captures the second group in the regex path (.*)
+spec:
+  ingressClassName: nginx
+  # ✳️ Tells Kubernetes to use the NGINX Ingress Controller (enabled via `minikube addons enable ingress`)
+  # Required in newer versions of Kubernetes
+
+  rules:
+    - host: ""
+      # ✳️ Empty host means it matches all hostnames (like using the IP directly or /etc/hosts like `dev.local`)
+      http:
+        paths:
+          - path: /auth(/|$)(.*)
+            pathType: ImplementationSpecific
+            # ✳️ pathType determines how the path is interpreted.
+            # Options: Exact | Prefix | ImplementationSpecific
+            # - "Exact": full string match
+            # - "Prefix": match any path with this prefix (e.g., "/auth")
+            # - "ImplementationSpecific": lets the Ingress controller (nginx) interpret it, allowing regex
+            #   ⚠️ Required here because we're using regex path and $2 backreference
+
+            backend:
+              service:
+                name: dev-auth        # Service to route to
+                port:
+                  number: 8000       # Port exposed by the service (typically your Spring Boot app)
+
+#          - path: /takeaway(/|$)(.*)
+#            pathType: ImplementationSpecific
+#            # ✳️ This will match both `/takeaway` and anything after it like `/takeaway/api/...`
+#            backend:
+#              service:
+#                name: dev-takeaway
+#                port:
+#                  number: 8080
+#
+#          - path: /revised(/|$)(.*)
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: dev-revised
+#                port:
+#                  number: 8080
