@@ -1,3 +1,35 @@
+# Kubernetes Deployment File Structure
+
+This structure organizes Kubernetes manifests by component/service, supporting modular and scalable deployments.
+
+```
+.
+├── dev-auth/                 # Kubernetes configs for the dev-auth service
+│   ├── deployment.yml        # Deployment configuration for dev-auth
+│   ├── service.yml           # Service definition for dev-auth
+│   └── secret.yml            # Secret(s) used by dev-auth (e.g., DB credentials, JWT keys)
+├── dev-take/                 # Kubernetes configs for the dev-take service
+│   ├── deployment.yml
+│   ├── service.yml
+│   └── secret.yml
+├── dev-revised/              # Kubernetes configs for the dev-revised service
+│   ├── deployment.yml
+│   ├── service.yml
+│   └── secret.yml
+├── postgres/                 # PostgreSQL DB setup for Kubernetes
+│   ├── deployment.yml        # StatefulSet or Deployment for PostgreSQL
+│   ├── service.yml           # ClusterIP or headless service for PostgreSQL
+│   ├── configmap.yml         # Optional: PG config as ConfigMap
+│   └── secret.yml            # DB credentials as Kubernetes Secret
+├── elastic/                  # Elasticsearch cluster setup
+│   ├── deployment.yml
+│   ├── service.yml
+│   └── configmap.yml         # Optional: JVM or ES settings
+├── ingress/                  # Ingress routing configuration
+│   └── ingress.yml           # Ingress resource definition (NGINX/Gateway/etc.)
+└── README.md                 # Documentation for how to deploy or manage this setup
+```
+
 # Kubernetes & Minikube (kubectl) Commands Cheat Sheet
 
 A handy reference for essential Minikube and Kubernetes commands with explanations and examples.

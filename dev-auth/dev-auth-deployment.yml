@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: dev-auth
-          image: dev-auth:latest            # Local image
+          image: dev-auth:master            # Local image
           imagePullPolicy: Never            # Don't pull from Docker Hub (used with local build)
           ports:
             - containerPort: 8000           # Your Spring Boot app port
@@ -36,17 +36,27 @@ spec:
                 secretKeyRef:
                   name: dev-auth-secret
                   key: SPRING_DATASOURCE_PASSWORD
+            - name: DEV_ELASTIC_PROPERTY_HOST
+              value: "elasticsearch"
+            - name: DEV_ELASTIC_PROPERTY_PORT
+              value: "9200"
+            - name: DEV_ELASTIC_PROPERTY_SCHEME
+              value: "http"
+            - name: DEV_ELASTIC_CREDENTIALS_USERNAME
+              value: "admin"
+            - name: DEV_ELASTIC_CREDENTIALS_PASSWORD
+              value: "admin"
 
-          readinessProbe:                  # Optional, checks app is ready to serve traffic
-            httpGet:
-              path: /actuator/health       # Requires Spring Boot actuator
-              port: 8000
-            initialDelaySeconds: 10
-            periodSeconds: 5
-
-          livenessProbe:                   # Optional, restarts pod if app becomes unhealthy
-            httpGet:
-              path: /actuator/health
-              port: 8000
-            initialDelaySeconds: 30
-            periodSeconds: 10
+#          readinessProbe:                  # Optional, checks app is ready to serve traffic
+#            httpGet:
+#              path: /actuator/health       # Requires Spring Boot actuator
+#              port: 8000
+#            initialDelaySeconds: 10
+#            periodSeconds: 5
+#
+#          livenessProbe:                   # Optional, restarts pod if app becomes unhealthy
+#            httpGet:
+#              path: /actuator/health
+#              port: 8000
+#            initialDelaySeconds: 30
+#            periodSeconds: 10
