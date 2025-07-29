@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1      # API group for networking resources (Ingress belongs here)
+kind: Ingress                         # We're defining an Ingress resource
+
+metadata:
+  name: dev-auth-nginx                   # Name of this Ingress resource (used to reference or manage it)
+
+spec:
+  ingressClassName: nginx             # Tells Kubernetes to use the 'nginx' ingress controller (enabled via `minikube addons enable ingress`)
+
+  rules:
+    - host: dev.local                 # Domain name this rule will apply to (must be mapped in /etc/hosts)
+
+      http:
+        paths:
+          - path: /dev-auth           # Incoming path to match in browser (e.g., http://dev.local/dev-auth/**)
+            pathType: Prefix          # Match all paths that start with /dev-auth (e.g., /dev-auth, /dev-auth/api)
+            backend:
+              service:
+                name: dev-auth-service # Service name in Kubernetes to forward matching traffic to
+                port:
+                  number: 8000         # Port exposed by the service (not the container directly)
+
+          - path: /dev-takeaway        # Incoming path to match for second service (e.g., http://dev.local/dev-takeaway/**)
+            pathType: Prefix           # Again, matches all paths starting with /dev-takeaway
+            backend:
+              service:
+                name: dev-takeaway-service # Route to dev-takeaway-service
+                port:
+                  number: 8080             # Port of the takeaway service exposed in the cluster
+
+#  Request URL	                          Matches Path	            Forwards To
+#  http://dev.local/dev-auth	            /dev-auth	          dev-auth-service:8000
+#  http://dev.local/dev-auth/login	        /dev-auth/*	          dev-auth-service:8000
+#  http://dev.local/dev-takeaway	        /dev-takeaway	      dev-takeaway-service:8080
+#  http://dev.local/dev-takeaway/api	    /dev-takeaway/*	      dev-takeaway-service:8080
+

@@ -39,10 +39,38 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ### Create / Apply Resources
 
-| Command                    | Description                        | Example                            |
-|----------------------------|------------------------------------|------------------------------------|
-| `kubectl apply -f <file>`  | Applies a YAML configuration.      | `kubectl apply -f deployment.yaml` |
-| `kubectl create -f <file>` | Creates resources defined in YAML. | `kubectl create -f service.yaml`   |
+| Command                                                              | Description                                         | Example                                                              |
+|----------------------------------------------------------------------|-----------------------------------------------------|----------------------------------------------------------------------|
+| `kubectl get pods`                                                   | Lists all Pods.                                     | `kubectl get pods`                                                   |
+| `kubectl get svc`                                                    | Lists all Services.                                 | `kubectl get svc`                                                    |
+| `kubectl get deployments`                                            | Lists all Deployments.                              | `kubectl get deployments`                                            |
+| `kubectl get rs`                                                     | Lists all ReplicaSets.                              | `kubectl get rs`                                                     |
+| `kubectl get cm`                                                     | Lists all ConfigMaps.                               | `kubectl get cm`                                                     |
+| `kubectl get secret`                                                 | Lists all Secrets.                                  | `kubectl get secret`                                                 |
+| `kubectl get pvc`                                                    | Lists all Persistent Volume Claims.                 | `kubectl get pvc`                                                    |
+| `kubectl get ingressclass`                                           | Lists all ingress classes (nginx).                  | `kubectl get ingressclass`                                           |
+| `kubectl get pv`                                                     | Lists all Persistent Volumes.                       | `kubectl get pv`                                                     |
+| `kubectl get ingress`                                                | Lists all Ingress resources.                        | `kubectl get ingress`                                                |
+| `kubectl get job`                                                    | Lists all batch Jobs.                               | `kubectl get job`                                                    |
+| `kubectl get cronjob`                                                | Lists all scheduled CronJobs.                       | `kubectl get cronjob`                                                |
+| `kubectl get sa`                                                     | Lists all ServiceAccounts.                          | `kubectl get sa`                                                     |
+| `kubectl get hpa`                                                    | Lists all Horizontal Pod Autoscalers.               | `kubectl get hpa`                                                    |
+| `kubectl get all`                                                    | Lists core workloads (pods, svc, deploy, rs).       | `kubectl get all`                                                    |
+| `kubectl get all,cm,secret,pvc,ingress,job,cronjob`                  | Lists all key workload and configuration resources. | `kubectl get all,cm,secret,pvc,ingress,job,cronjob`                  |
+| `kubectl get all,cm,secret,pvc,ingress,job,cronjob -n <namespace>`   | Same as above but for a specific namespace.         | `kubectl get all,cm,secret,pvc,ingress,job,cronjob -n dev`           |
+| `kubectl get all,cm,secret,pvc,ingress,job,cronjob --all-namespaces` | Lists everything across all namespaces.             | `kubectl get all,cm,secret,pvc,ingress,job,cronjob --all-namespaces` |
+
+---
+
+## Create / Apply / Update Resources
+
+| Command                           | Description                             | Example                                     |
+|-----------------------------------|-----------------------------------------|---------------------------------------------|
+| `kubectl apply -f <file>`         | Applies a YAML configuration.           | `kubectl apply -f deployment.yaml`          |
+| `kubectl create -f <file>`        | Creates resources defined in YAML.      | `kubectl create -f service.yaml`            |
+| `kubectl replace -f <file>`       | Replaces existing resource with YAML.   | `kubectl replace -f configmap.yaml`         |
+| `kubectl edit <resource> <name>`  | Edit a resource directly in the editor. | `kubectl edit deployment my-deploy`         |
+| `kubectl patch <resource> <name>` | Patch fields of a live resource.        | `kubectl patch deployment my-deploy -p ...` |
 
 ---
 
