@@ -1,50 +1,36 @@
-apiVersion: networking.k8s.io/v1   # Kubernetes API group for networking resources
-kind: Ingress                      # We're defining an Ingress resource
+apiVersion: networking.k8s.io/v1      # API group for networking resources (Ingress belongs here)
+kind: Ingress                         # We're defining an Ingress resource
+
 metadata:
-  name: dev-ingress                # Name of the Ingress object
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    # ✳️ Annotation to rewrite the matched URL path before forwarding to the backend service.
-    # For example, "/auth/api/hello" becomes "/api/hello" for the dev-auth service.
-    # $2 captures the second group in the regex path (.*)
+  name: dev-auth-nginx                   # Name of this Ingress resource (used to reference or manage it)
+
 spec:
-  ingressClassName: nginx
-  # ✳️ Tells Kubernetes to use the NGINX Ingress Controller (enabled via `minikube addons enable ingress`)
-  # Required in newer versions of Kubernetes
+  ingressClassName: nginx             # Tells Kubernetes to use the 'nginx' ingress controller (enabled via `minikube addons enable ingress`)
 
   rules:
-    - host: ""
-      # ✳️ Empty host means it matches all hostnames (like using the IP directly or /etc/hosts like `dev.local`)
+    - host: dev.local                 # Domain name this rule will apply to (must be mapped in /etc/hosts)
+
       http:
         paths:
-          - path: /auth(/|$)(.*)
-            pathType: ImplementationSpecific
-            # ✳️ pathType determines how the path is interpreted.
-            # Options: Exact | Prefix | ImplementationSpecific
-            # - "Exact": full string match
-            # - "Prefix": match any path with this prefix (e.g., "/auth")
-            # - "ImplementationSpecific": lets the Ingress controller (nginx) interpret it, allowing regex
-            #   ⚠️ Required here because we're using regex path and $2 backreference
-
+          - path: /dev-auth           # Incoming path to match in browser (e.g., http://dev.local/dev-auth/**)
+            pathType: Prefix          # Match all paths that start with /dev-auth (e.g., /dev-auth, /dev-auth/api)
             backend:
               service:
-                name: dev-auth        # Service to route to
+                name: dev-auth-service # Service name in Kubernetes to forward matching traffic to
                 port:
-                  number: 8000       # Port exposed by the service (typically your Spring Boot app)
+                  number: 8000         # Port exposed by the service (not the container directly)
 
-#          - path: /takeaway(/|$)(.*)
-#            pathType: ImplementationSpecific
-#            # ✳️ This will match both `/takeaway` and anything after it like `/takeaway/api/...`
-#            backend:
-#              service:
-#                name: dev-takeaway
-#                port:
-#                  number: 8080
-#
-#          - path: /revised(/|$)(.*)
-#            pathType: ImplementationSpecific
-#            backend:
-#              service:
-#                name: dev-revised
-#                port:
-#                  number: 8080
+          - path: /dev-takeaway        # Incoming path to match for second service (e.g., http://dev.local/dev-takeaway/**)
+            pathType: Prefix           # Again, matches all paths starting with /dev-takeaway
+            backend:
+              service:
+                name: dev-takeaway-service # Route to dev-takeaway-service
+                port:
+                  number: 8080             # Port of the takeaway service exposed in the cluster
+
+#  Request URL	                          Matches Path	            Forwards To
+#  http://dev.local/dev-auth	            /dev-auth	          dev-auth-service:8000
+#  http://dev.local/dev-auth/login	        /dev-auth/*	          dev-auth-service:8000
+#  http://dev.local/dev-takeaway	        /dev-takeaway	      dev-takeaway-service:8080
+#  http://dev.local/dev-takeaway/api	    /dev-takeaway/*	      dev-takeaway-service:8080
+

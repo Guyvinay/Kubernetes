@@ -84,6 +84,7 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 | `kubectl get cm`                                                     | Lists all ConfigMaps.                               | `kubectl get cm`                                                     |
 | `kubectl get secret`                                                 | Lists all Secrets.                                  | `kubectl get secret`                                                 |
 | `kubectl get pvc`                                                    | Lists all Persistent Volume Claims.                 | `kubectl get pvc`                                                    |
+| `kubectl get ingressclass`                                           | Lists all ingress classes (nginx).                  | `kubectl get ingressclass`                                           |
 | `kubectl get pv`                                                     | Lists all Persistent Volumes.                       | `kubectl get pv`                                                     |
 | `kubectl get ingress`                                                | Lists all Ingress resources.                        | `kubectl get ingress`                                                |
 | `kubectl get job`                                                    | Lists all batch Jobs.                               | `kubectl get job`                                                    |
