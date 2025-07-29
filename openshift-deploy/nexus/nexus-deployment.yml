@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus
+  template:
+    metadata:
+      labels:
+        app: nexus
+    spec:
+      containers:
+        - name: nexus
+          image: sonatype/nexus3:3.82.0
+          ports:
+            - containerPort: 8081
+          env:
+            - name: NEXUS_HOSTNAME
+              value: "nexus"
+          volumeMounts:
+            - name: nexus-storage
+              mountPath: /nexus-data  # Nexus requires this exact mount point
+          resources:
+            requests:
+              memory: "512Mi"
+            limits:
+              memory: "1Gi"
+      volumes:
+        - name: nexus-storage
+          persistentVolumeClaim:
+            claimName: nexus-pvc
