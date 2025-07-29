@@ -1,11 +1,16 @@
+# -----------------------------
+# PostgreSQL Service (Internal)
+# -----------------------------
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: postgres  # Internal service name for DNS (e.g., postgres.default.svc.cluster.local)
 spec:
   selector:
-    app: postgres
+    app: postgres  # Matches pods with this label
   ports:
-    - port: 5432
-      targetPort: 5432
-  type: ClusterIP
+    - name: postgres
+      port: 5432         # Port exposed by the Service inside the cluster
+      targetPort: 5432   # Port exposed by the container
+      protocol: TCP
+  type: ClusterIP  # Default: accessible only within the cluster (not exposed to the internet)

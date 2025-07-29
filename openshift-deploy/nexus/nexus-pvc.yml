@@ -1,3 +1,4 @@
+# nexus-pvc.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -7,4 +8,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi  # Reduce to 512Mi if Sandbox limits are hit
+      storage: 5Gi  # adjust as needed
+  storageClassName: gp3-csi  # replace with your OpenShift default SC if needed
