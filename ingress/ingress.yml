@@ -34,3 +34,19 @@ spec:
 #  http://dev.local/dev-takeaway	        /dev-takeaway	      dev-takeaway-service:8080
 #  http://dev.local/dev-takeaway/api	    /dev-takeaway/*	      dev-takeaway-service:8080
 
+#          - path: /takeaway(/|$)(.*)
+#            pathType: ImplementationSpecific
+#            # ✳️ This will match both `/takeaway` and anything after it like `/takeaway/api/...`
+#            backend:
+#              service:
+#                name: dev-takeaway
+#                port:
+#                  number: 8080
+#
+#          - path: /revised(/|$)(.*)
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: dev-revised
+#                port:
+#                  number: 8080

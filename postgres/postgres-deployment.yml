@@ -19,14 +19,14 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: dev_auth     # DB name to be created
+              value: test_db     # DB name to be created
             - name: POSTGRES_USER
-              value: vinay        # Username
+              value: postgres        # Username
             - name: POSTGRES_PASSWORD
-              value: vinaypass    # Password (store in Secret in prod)
+              value: root    # Password (store in Secret in prod)
           volumeMounts:
             - name: pgdata
               mountPath: /var/lib/postgresql/data  # Persist DB data
       volumes:
         - name: pgdata
-          emptyDir: {}            # ⚠️ Ephemeral. Use PersistentVolume in prod
+          emptyDir: {}            # Ephemeral. Use PersistentVolume in prod

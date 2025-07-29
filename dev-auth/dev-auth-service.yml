@@ -2,11 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: dev-auth-service
+  labels:
+    app: dev-auth             # Helps with filtering and organizing
 spec:
-  type: NodePort                  # Exposes service to your local machine via Node IP
+  type: NodePort              # Expose app outside cluster via NodePort on minikube
   selector:
-    app: dev-auth
+    app: dev-auth             # Matches pods with this label
   ports:
-    - port: 8080                  # Service port inside cluster
-      targetPort: 8080            # Port Spring Boot exposes
-      nodePort: 30080             # Exposed on minikube IP
+    - name: http              # Optional, for clarity in observability
+      port: 8000              # Port the service exposes inside the cluster
+      targetPort: 8000        # Port exposed by the container
+      nodePort: 30081         # Must be in range 30000-32767
