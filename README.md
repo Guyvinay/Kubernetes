@@ -190,6 +190,117 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ---
 
+
+## OpenShift CLI (`oc`) Commands Cheat Sheet
+
+## Login, Context, and Projects
+
+| Command                                           | Description                                        | Example                                                            |
+|---------------------------------------------------|----------------------------------------------------|--------------------------------------------------------------------|
+| `oc login <url> --token=<token>`                  | Login to OpenShift cluster.                        | `oc login https://... --token=sha256~...`                          |
+| `oc whoami`                                       | Print the current authenticated user.              |                                                                    |
+| `oc config view`                                  | View current kubeconfig (includes OpenShift).      |                                                                    |
+| `oc projects`                                     | List accessible projects.                          |                                                                    |
+| `oc project <name>`                               | Switch to a specific project.                      | `oc project mrsinghvinay563-dev`                                  |
+| `oc new-project <name>`                           | Create a new OpenShift project.                    | `oc new-project dev-auth-backend`                                  |
+
+## Deployments, Builds, Pods
+
+| Command                                      | Description                                       | Example                                           |
+|----------------------------------------------|---------------------------------------------------|---------------------------------------------------|
+| `oc get all`                                 | List all core resources in current project.       |                                                   |
+| `oc get deployment`                          | List deployments.                                |                                                   |
+| `oc rollout status deployment/<name>`        | Watch rollout status.                            | `oc rollout status deployment/dev-auth`           |
+| `oc logs <pod>`                              | View logs of a pod.                              | `oc logs dev-auth-74cf...`                        |
+| `oc logs -f <pod>`                           | Stream logs.                                     |                                                   |
+| `oc get pod`                                 | List all pods.                                   |                                                   |
+| `oc describe pod <pod>`                      | Detailed pod info and events.                    |                                                   |
+| `oc exec -it <pod> -- <cmd>`                 | Exec into a pod.                                 | `oc exec -it my-pod -- /bin/bash`                 |
+| `oc get build`                               | List builds.                                     | Useful for S2I and Jenkins-based pipelines        |
+| `oc start-build <buildconfig>`               | Manually trigger a build.                        |                                                   |
+
+## Resources: ConfigMaps, Secrets, PVC, Routes
+
+| Command                                    | Description                                      | Example                                              |
+|--------------------------------------------|--------------------------------------------------|------------------------------------------------------|
+| `oc get configmap`                         | List ConfigMaps.                                 |                                                      |
+| `oc describe configmap <name>`             | Show ConfigMap details.                          |                                                      |
+| `oc get secret`                            | List Secrets.                                    |                                                      |
+| `oc get pvc`                               | List Persistent Volume Claims.                   |                                                      |
+| `oc get pv`                                | List Persistent Volumes.                         |                                                      |
+| `oc get route`                             | List Routes (OpenShift-specific Ingress).        |                                                      |
+| `oc describe route <name>`                 | Show route details, target svc, TLS config.      | `oc describe route dev-auth`                        |
+| `oc expose svc <svc> --name=<route-name>`  | Create a route from a service.                   | `oc expose svc dev-auth --name=dev-auth-route`       |
+
+## 🔍 Labels, Logs, Events
+
+| Command                                      | Description                                    | Example                                             |
+|----------------------------------------------|------------------------------------------------|-----------------------------------------------------|
+| `oc get pods -l app=dev-auth`                | Get pods by label.                             |                                                     |
+| `oc label pod <pod> key=value`               | Add a label to a pod.                          |                                                     |
+| `oc annotate pod <pod> key=value`            | Add an annotation to a pod.                    |                                                     |
+| `oc get events --sort-by=.metadata.creationTimestamp` | Get events ordered by time.          |                                                     |
+| `oc get --raw /metrics`                      | View Prometheus metrics endpoint (if enabled). |                                                     |
+
+## Images, Templates, BuildConfigs (S2I)
+
+| Command                                           | Description                                        | Example                                                     |
+|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------------------|
+| `oc new-app <image> --name=<app>`                 | Create app from image.                             | `oc new-app quay.io/myimage --name=dev-auth`                |
+| `oc new-app . --name=<name>`                      | Create app using S2I from current dir (Dockerfile).| `oc new-app . --name=my-spring-app`                         |
+| `oc new-build <image> --binary --name=<build>`    | Create binary build (JAR upload).                  | `oc new-build registry.access.redhat.com/openjdk --binary`  |
+| `oc start-build <build> --from-dir=.`             | Trigger binary build from local directory.         |                                                             |
+| `oc start-build <build> --from-file=app.jar`      | Trigger binary build from JAR file.                |                                                             |
+| `oc get is`                                       | Get image streams.                                 |                                                             |
+| `oc tag <src>:<tag> <dst>:<tag>`                  | Tag an image into another stream.                  | `oc tag myimg:latest myproj/myimg:dev`                      |
+
+## Debugging, Troubleshooting, and Rollbacks
+
+| Command                                              | Description                                  | Example                                           |
+|------------------------------------------------------|----------------------------------------------|---------------------------------------------------|
+| `oc debug pod/<name>`                                | Start ephemeral container for debugging.     | `oc debug pod/dev-auth-xyz`                       |
+| `oc adm top pods`                                    | Show CPU/memory usage (metrics-server).      |                                                   |
+| `oc adm top nodes`                                   | Show node resource usage.                    |                                                   |
+| `oc rollout history deployment/<name>`               | View rollout history.                        |                                                   |
+| `oc rollout undo deployment/<name>`                  | Rollback deployment.                         |                                                   |
+| `oc rsh <pod>`                                       | Remote shell into a pod (alias for `exec`).  | `oc rsh dev-auth-xyz`                             |
+| `oc port-forward svc/<name> <local>:<target>`        | Forward service port locally.                | `oc port-forward svc/dev-auth 8080:8080`          |
+
+## Access Control (RBAC)
+
+| Command                                               | Description                                        | Example                                          |
+|-------------------------------------------------------|----------------------------------------------------|--------------------------------------------------|
+| `oc get sa`                                           | List service accounts.                            |                                                  |
+| `oc adm policy add-role-to-user <role> <user>`        | Assign cluster role to a user.                    | `oc adm policy add-role-to-user admin vinay`     |
+| `oc adm policy add-scc-to-user <scc> -z <sa>`         | Grant SCC (security context constraint).          | `oc adm policy add-scc-to-user anyuid -z my-sa`  |
+| `oc describe scc <scc>`                               | View SCC definition (privileged, anyuid, etc).    |                                                  |
+
+## Clean Up and Delete
+
+| Command                               | Description                                 | Example                                 |
+|---------------------------------------|---------------------------------------------|-----------------------------------------|
+| `oc delete all -l app=<label>`        | Delete all resources by label.              | `oc delete all -l app=dev-auth`         |
+| `oc delete pod <name>`                | Delete a specific pod.                      | `oc delete pod dev-auth-74cf...`        |
+| `oc delete route <name>`              | Delete a route.                             | `oc delete route dev-auth-route`        |
+| `oc delete project <name>`            | Delete a full OpenShift project.            | `oc delete project dev-auth`            |
+
+## Tips
+
+- To **view YAML definition** of any object:
+  ```bash
+  oc get <resource> <name> -o yaml
+  ```
+
+- To **watch resource changes**:
+  ```bash
+  watch oc get pods
+  ```
+
+- To **get terminal from within a container**:
+  ```bash
+  oc exec -it <pod> -- /bin/bash
+  ```
+
 ## YAML Example: Simple Deployment
 
 ```yaml
