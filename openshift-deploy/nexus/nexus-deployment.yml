@@ -15,19 +15,25 @@ spec:
       containers:
         - name: nexus
           image: sonatype/nexus3:3.82.0
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
           env:
             - name: NEXUS_HOSTNAME
               value: "nexus"
+            # Optional JVM tuning for stability on limited memory
+            - name: INSTALL4J_ADD_VM_PARAMS
+              value: "-Xms512m -Xmx1500m -XX:MaxDirectMemorySize=2g"
           volumeMounts:
             - name: nexus-storage
               mountPath: /nexus-data  # Nexus requires this exact mount point
           resources:
             requests:
-              memory: "512Mi"
-            limits:
+              cpu: "250m"
               memory: "1Gi"
+            limits:
+              cpu: "500m"
+              memory: "2Gi"
       volumes:
         - name: nexus-storage
           persistentVolumeClaim:

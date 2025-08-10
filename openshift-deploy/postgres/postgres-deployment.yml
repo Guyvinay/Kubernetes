@@ -18,7 +18,7 @@ spec:
 #        allowPrivilegeEscalation: false
       containers:
         - name: postgres
-          image: postgres:14  # You can also use registry.redhat.io/rhel8/postgresql-14 if require
+          image: postgres:16  # You can also use registry.redhat.io/rhel8/postgresql-16 if require
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false

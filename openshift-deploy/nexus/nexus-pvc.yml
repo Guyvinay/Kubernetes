@@ -7,4 +7,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi  # Reduce to 512Mi if Sandbox limits are hit
+      storage: 2Gi   # recommended for anything but very small test setups
+  volumeMode: Filesystem
+  # storageClassName: <your-storage-class>   # uncomment / set if you have a preferred storage class
