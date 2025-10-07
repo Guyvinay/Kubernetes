@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  labels:
+    app: redis
+data:
+  # Sample Redis config (can be extended)
+  REDIS_MAXMEMORY: 256mb

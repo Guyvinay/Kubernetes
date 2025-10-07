@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  labels:
+    app: redis
+spec:
+  type: ClusterIP                 # Internal only, used by microservices
+  selector:
+    app: redis
+  ports:
+    - port: 6379                  # Service port
+      targetPort: 6379            # Pod container port
