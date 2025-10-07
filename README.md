@@ -37,23 +37,23 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 ---
 # Minikube Commands
 
-| Command                           | Description                                       | Example                                |
-|-----------------------------------|---------------------------------------------------|----------------------------------------|
-| `minikube start`                  | Starts a local Kubernetes cluster.                | `minikube start --driver=virtualbox`   |
-| `minikube stop`                   | Stops the Minikube cluster.                       | `minikube stop`                        |
-| `minikube delete`                 | Deletes the Minikube cluster and VM.              | `minikube delete`                      |
-| `minikube status`                 | Shows the status of the Minikube cluster.         | `minikube status`                      |
-| `minikube dashboard`              | Launches the Kubernetes Dashboard in a browser.   | `minikube dashboard`                   |
-| `minikube ip`                     | Displays Minikube cluster IP address.             | `minikube ip`                          |
-| `minikube ssh`                    | SSH into the Minikube VM.                         | `minikube ssh`                         |
-| `minikube addons list`            | Lists all Minikube addons.                        | `minikube addons list`                 |
-| `minikube addons enable <addon>`  | Enables an addon (e.g., ingress, metrics-server). | `minikube addons enable ingress`       |
-| `minikube addons disable <addon>` | Disables a Minikube addon.                        | `minikube addons disable ingress`      |
-| `minikube service <svc>`          | Opens the service in default browser.             | `minikube service dev-auth-service`    |
-| `minikube service <svc> --url`    | Gets the service's accessible URL.                | `minikube service nginx-service --url` |
-| `minikube image load <image>`     | Loads a local Docker image into Minikube.         | `minikube image load dev-auth:latest`  |
-| `minikube mount <local>:<vm>`     | Mounts a host dir into Minikube VM.               | `minikube mount ./data:/data`          |
-| `minikube tunnel`                 | Creates a tunnel to expose LoadBalancer service.  | `minikube tunnel`                      |
+| Command                                       | Description                                       | Example                                |
+|-----------------------------------------------|---------------------------------------------------|----------------------------------------|
+| `minikube start`                              | Starts a local Kubernetes cluster.                | `minikube start --driver=virtualbox`   |
+| `minikube stop`                               | Stops the Minikube cluster.                       | `minikube stop`                        |
+| `minikube delete`                             | Deletes the Minikube cluster and VM.              | `minikube delete`                      |
+| `minikube status`                             | Shows the status of the Minikube cluster.         | `minikube status`                      |
+| `minikube dashboard`                          | Launches the Kubernetes Dashboard in a browser.   | `minikube dashboard`                   |
+| `minikube ip`                                 | Displays Minikube cluster IP address.             | `minikube ip`                          |
+| `minikube ssh`                                | SSH into the Minikube VM.                         | `minikube ssh`                         |
+| `minikube addons list`                        | Lists all Minikube addons.                        | `minikube addons list`                 |
+| `minikube addons enable <addon>`              | Enables an addon (e.g., ingress, metrics-server). | `minikube addons enable ingress`       |
+| `minikube addons disable <addon>`             | Disables a Minikube addon.                        | `minikube addons disable ingress`      |
+| `minikube service <svc> -n <namespace>`       | Opens the service in default browser.             | `minikube service dev-auth-service`    |
+| `minikube service <svc> --url -n <namespace>` | Gets the service's accessible URL.                | `minikube service nginx-service --url` |
+| `minikube image load <image>`                 | Loads a local Docker image into Minikube.         | `minikube image load dev-auth:latest`  |
+| `minikube mount <local>:<vm>`                 | Mounts a host dir into Minikube VM.               | `minikube mount ./data:/data`          |
+| `minikube tunnel`                             | Creates a tunnel to expose LoadBalancer service.  | `minikube tunnel`                      |
 
 ---
 
