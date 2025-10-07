@@ -1,40 +1,41 @@
+# -----------------------------
+#  PostgreSQL Deployment
+# -----------------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: postgres  # Name of the Deployment (manages pod lifecycle)
 spec:
-  replicas: 1
+  replicas: 1  # One instance of PostgreSQL (recommended for DB consistency)
   selector:
     matchLabels:
-      app: postgres
+      app: postgres  # Ties pod template to this Deployment
   template:
     metadata:
       labels:
-        app: postgres
+        app: postgres  # Label used by Service or selectors
     spec:
-      securityContext:
-        fsGroup: 999  # UID used by postgres in the container
-#        runAsNonRoot: true
-#        allowPrivilegeEscalation: false
       containers:
-        - name: postgres
-          image: postgres:16  # You can also use registry.redhat.io/rhel8/postgresql-16 if require
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
+        - name: postgres  # Container name (can be anything)
+          image: postgres:14  # Official PostgreSQL image from DockerHub
           ports:
-            - containerPort: 5432
+            - containerPort: 5432  # PostgreSQL port exposed inside the container
           env:
             - name: POSTGRES_USER
-              value: myuser
+              value: guyvinay  # Initial PostgreSQL superuser
             - name: POSTGRES_PASSWORD
-              value: mypass
+              value: password  # Password for superuser
             - name: POSTGRES_DB
-              value: mydb
+              value: mydb  # Initial database to create on first startup
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata  # Custom data path inside volume
+              # This avoids the root folder (/data) where `lost+found` might exist
           volumeMounts:
             - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql/data  # Mount path inside the container
+              # PostgreSQL will write its DB files here
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: postgres-pvc  # Refers to the PVC created above
+            # Kubernetes will automatically bind the pod to the dynamically provisioned volume

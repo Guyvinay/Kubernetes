@@ -1,3 +1,4 @@
+# nexus-pvc.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -7,6 +8,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi   # recommended for anything but very small test setups
-  volumeMode: Filesystem
-  # storageClassName: <your-storage-class>   # uncomment / set if you have a preferred storage class
+      storage: 5Gi  # adjust as needed
+  storageClassName: gp3-csi  # replace with your OpenShift default SC if needed

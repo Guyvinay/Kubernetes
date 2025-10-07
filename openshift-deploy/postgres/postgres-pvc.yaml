@@ -1,10 +1,14 @@
+# -----------------------------
+# PersistentVolumeClaim (PVC)
+# -----------------------------
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
+  name: postgres-pvc  # Name of the PVC, referenced in the Deployment
 spec:
   accessModes:
-    - ReadWriteOnce  # Only one pod can mount it at a time (sufficient for DB)
+    - ReadWriteOnce  # Only one pod can mount this volume for read-write
   resources:
     requests:
-      storage: 1Gi    # You can increase this if needed
+      storage: 1Gi  # Minimum storage needed for PostgreSQL data
+  storageClassName: gp3-csi  # Replace with actual available StorageClass (from `oc get sc`) |  Use OpenShift's dynamic provisioner (auto-creates a disk)
