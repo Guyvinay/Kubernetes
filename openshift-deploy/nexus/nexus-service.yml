@@ -10,4 +10,10 @@ spec:
     - name: http
       port: 8081
       targetPort: 8081
-  type: ClusterIP
+      nodePort: 30081
+    - name: docker-registry
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30500
+  type: NodePort
