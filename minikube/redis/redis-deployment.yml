@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - containerPort: 6379 # Default Redis port
+          envFrom:
+            - secretRef:
+                name: redis-secret    # Optional password
+            - configMapRef:
+                name: redis-config    # Optional tuning config
+          volumeMounts:
+            - name: redis-storage
+              mountPath: /data          # Redis data directory
+      volumes:
+        - name: redis-storage
+          persistentVolumeClaim:
+            claimName: redis-pvc

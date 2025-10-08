@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-service
+  labels:
+    app: elasticsearch
+spec:
+  type: NodePort                    # For Internal access only: ClusterIP
+  selector:
+    app: elasticsearch
+  ports:
+    - name: rest
+      port: 9200                     # REST API
+      targetPort: 9200
+      nodePort: 32000           # fixed port on host
+    - name: transport
+      port: 9300                     # Transport port
+      targetPort: 9300
+      nodePort: 32001

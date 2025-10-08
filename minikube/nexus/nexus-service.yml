@@ -1,0 +1,22 @@
+# -------------------------------------------------------------
+# Service — exposes Nexus UI and Docker registry to cluster.
+# -------------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-service
+  labels:
+    app: nexus
+spec:
+  type: NodePort                     # Accessible from outside Minikube
+  selector:
+    app: nexus
+  ports:
+    - name: nexus-ui
+      port: 8081                     # Cluster-internal port for web UI
+      targetPort: 8081
+      nodePort: 30081                # External port (use http://<minikube-ip>:30081)
+    - name: docker-registry
+      port: 5000                     # Cluster-internal port for Docker registry
+      targetPort: 5000
+      nodePort: 30500                # External port for pushing/pulling images (http://<minikube-ip>:30500)
