@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-auth-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dev-auth-server
+  template:
+    metadata:
+      labels:
+        app: dev-auth-server
+    spec:
+      containers:
+        - name: dev-auth-server
+          image: 192.168.49.2:30500/dev-auth-server:latest
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: nexus-secret  # required if repo needs auth
