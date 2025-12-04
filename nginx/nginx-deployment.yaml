@@ -1,19 +1,67 @@
-apiVersion: apps/v1           # API group for deployments
-kind: Deployment              # This resource is a Deployment
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: nginx-deployment      # Name of the deployment
+  name: nginx-deployment
+  labels:
+    app: nginx-demo
 spec:
-  replicas: 2                 # We want 2 nginx pods running
+  # ----------------------------------------------------------
+  # How many Pods should always be running?
+  # ----------------------------------------------------------
+  replicas: 3
+
+  # ----------------------------------------------------------
+  # This selector tells the Deployment which Pods belong to it
+  # These labels must match the template.metadata.labels below.
+  # ----------------------------------------------------------
   selector:
     matchLabels:
-      app: nginx              # Tells K8s which pods belong to this deployment
+      app: nginx-demo
+
+  # ----------------------------------------------------------
+  # Strategy for updating Pods:
+  # - RollingUpdate: default, zero-downtime rollout
+  # - Recreate: kill all old Pods, then start new ones
+  # ----------------------------------------------------------
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1      # allow 1 extra Pod during update
+      maxUnavailable: 1  # allow 1 Pod to be unavailable
+
+  # ----------------------------------------------------------
+  # Template = Pod definition
+  # Deployment creates ReplicaSets based on this template
+  # ----------------------------------------------------------
   template:
     metadata:
       labels:
-        app: nginx            # Pods created will have this label
+        app: nginx-demo  # must match spec.selector.matchLabels
     spec:
       containers:
-        - name: nginx           # Container name
-          image: nginx:latest   # Docker image to run (from Docker Hub)
+        - name: nginx
+          image: nginx:latest
           ports:
-            - containerPort: 80   # Port exposed inside the container
+            - containerPort: 80
+
+          # --------------------------------------------------
+          # Readiness Probe:
+          # Tells Kubernetes when the app is READY to receive traffic.
+          # --------------------------------------------------
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
+
+          # --------------------------------------------------
+          # Liveness Probe:
+          # Tells Kubernetes when the container is UNHEALTHY and should restart.
+          # --------------------------------------------------
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
