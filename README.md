@@ -100,13 +100,15 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 
 ## Create / Apply / Update Resources
 
-| Command                           | Description                             | Example                                     |
-|-----------------------------------|-----------------------------------------|---------------------------------------------|
-| `kubectl apply -f <file>`         | Applies a YAML configuration.           | `kubectl apply -f deployment.yaml`          |
-| `kubectl create -f <file>`        | Creates resources defined in YAML.      | `kubectl create -f service.yaml`            |
-| `kubectl replace -f <file>`       | Replaces existing resource with YAML.   | `kubectl replace -f configmap.yaml`         |
-| `kubectl edit <resource> <name>`  | Edit a resource directly in the editor. | `kubectl edit deployment my-deploy`         |
-| `kubectl patch <resource> <name>` | Patch fields of a live resource.        | `kubectl patch deployment my-deploy -p ...` |
+| Command                                   | Description                               | Example                                     |
+|-------------------------------------------|-------------------------------------------|---------------------------------------------|
+| `kubectl apply -f <file>`                 | Applies a YAML configuration.             | `kubectl apply -f deployment.yaml`          |
+| `kubectl apply -R -f kubernetes/minikube` | Applies a YAML configuration recursively. | `kubectl apply -f kubernetes/minikube`      |
+| `kubectl create -f <file>`                | Creates resources defined in YAML.        | `kubectl create -f service.yaml`            |
+| `kubectl replace -f <file>`               | Replaces existing resource with YAML.     | `kubectl replace -f configmap.yaml`         |
+| `kubectl edit <resource> <name>`          | Edit a resource directly in the editor.   | `kubectl edit deployment my-deploy`         |
+| `kubectl patch <resource> <name>`         | Patch fields of a live resource.          | `kubectl patch deployment my-deploy -p ...` |
+
 
 ---
 
