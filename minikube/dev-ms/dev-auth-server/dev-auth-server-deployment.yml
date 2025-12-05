@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dev-auth-server
+  labels:
+    app: dev-auth-server
 spec:
   replicas: 1
   selector:
@@ -14,8 +16,10 @@ spec:
     spec:
       containers:
         - name: dev-auth-server
-          image: 192.168.49.2:30500/dev-auth-server:latest
+          image: 192.168.49.2:30500/dev-auth-server:1.0.0  # Nexus registry via NodePort
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
+      # Authenticate to Nexus private Docker registry using YAML secret
       imagePullSecrets:
-        - name: nexus-secret  # required if repo needs auth
+        - name: nexus-docker-secret

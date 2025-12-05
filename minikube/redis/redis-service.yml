@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: redis-service
   labels:
-    app: redis
+    app: redis               # Identifies Redis-related resources
 spec:
-  type: ClusterIP                 # Internal only, used by microservices
+  type: ClusterIP            # Internal-only service (not exposed externally)
   selector:
-    app: redis
+    app: redis               # Matches Redis Deployment/Pod labels
   ports:
-    - port: 6379                  # Service port
-      targetPort: 6379            # Pod container port
+    - port: 6379             # Service port used by other microservices
+      targetPort: 6379       # Port exposed by Redis container

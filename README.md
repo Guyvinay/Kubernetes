@@ -165,6 +165,26 @@ A handy reference for essential Minikube and Kubernetes commands with explanatio
 | `kubectl expose deployment <name> --type=NodePort` | Expose a deployment as a service. | `kubectl expose deployment nginx --port=80 --type=NodePort` |
 | `kubectl get ingress`                              | Lists all ingress resources.      | `kubectl get ingress`                                       |
 | `kubectl describe ingress <name>`                  | Shows details about an ingress.   | `kubectl describe ingress my-ingress`                       |
+| `kubectl describe ingress <name>`                  | Shows details about an ingress.   | `kubectl describe ingress my-ingress`                       |
+| `kubectl describe ingress <name>`                  | Shows details about an ingress.   | `kubectl describe ingress my-ingress`                       |
+| `kubectl describe ingress <name>`                  | Shows details about an ingress.   | `kubectl describe ingress my-ingress`                       |
+
+---
+
+| Command                                                    |
+|------------------------------------------------------------|
+| `kubectl port-forward svc/rabbitmq-service 15672:15672`    |
+| `kubectl port-forward svc/nexus-service 8081:8081`         |
+| `kubectl port-forward svc/elasticsearch-service 9200:9200` |
+| `kubectl port-forward svc/postgres-service 5432:5432`      |
+| `kubectl port-forward svc/redis-service 6379:6379`         |
+| `kubectl apply -R -f minikube`                             |
+| `kubectl delete -R -f minikube`                            |
+
+
+
+
+
 
 ---
 

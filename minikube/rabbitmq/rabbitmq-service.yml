@@ -3,17 +3,15 @@ kind: Service
 metadata:
   name: rabbitmq-service
   labels:
-    app: rabbitmq
+    app: rabbitmq            # Identifies RabbitMQ resources
 spec:
-  type: NodePort              # Exposes ports externally (via Minikube host)
+  type: ClusterIP            # Internal-only; UI accessed via port-forward
   selector:
-    app: rabbitmq
+    app: rabbitmq            # Routes traffic to RabbitMQ pod
   ports:
     - name: amqp
-      port: 5672
+      port: 5672             # AMQP port used by microservices
       targetPort: 5672
-      nodePort: 30007         # Accessible via localhost:30007
     - name: management
-      port: 15672
+      port: 15672            # Management UI, only accessible using port-forward
       targetPort: 15672
-      nodePort: 30008         # Accessible via localhost:30008

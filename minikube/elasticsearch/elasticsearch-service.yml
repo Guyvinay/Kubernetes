@@ -3,17 +3,15 @@ kind: Service
 metadata:
   name: elasticsearch-service
   labels:
-    app: elasticsearch
+    app: elasticsearch       # Identifies Elasticsearch resources
 spec:
-  type: NodePort                    # For Internal access only: ClusterIP
+  type: ClusterIP            # Internal API access
   selector:
-    app: elasticsearch
+    app: elasticsearch       # Targets Elasticsearch pod
   ports:
     - name: rest
-      port: 9200                     # REST API
+      port: 9200             # REST API used by your Spring Boot services
       targetPort: 9200
-      nodePort: 32000           # fixed port on host
     - name: transport
-      port: 9300                     # Transport port
+      port: 9300             # Node-to-node clustering (not exposed outside)
       targetPort: 9300
-      nodePort: 32001

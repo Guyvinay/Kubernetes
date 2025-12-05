@@ -1,12 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dev-auth-server-service
+  name: dev-auth-server
 spec:
+  type: ClusterIP
   selector:
     app: dev-auth-server
-  type: NodePort
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30080
