@@ -4,13 +4,14 @@ kind: Service                      # Service provides a stable network identity 
 metadata:
   name: postgres-service            # Name of the service
   labels:
-    app: postgres
+    app: postgres                   # Identifies PostgreSQL resources
 
 spec:
   type: ClusterIP                   # 'ClusterIP' makes the service accessible *only* inside the cluster
-                                   # Other options:
-                                   # - NodePort: exposes on host machine (for browser access)
-                                   # - LoadBalancer: used in cloud clusters (AWS/GCP)
+                                    # DB should stay internal inside the cluster
+                                    # Other options:
+                                    # - NodePort: exposes on host machine (for browser access)
+                                    # - LoadBalancer: used in cloud clusters (AWS/GCP)
   selector:
     app: postgres                   # Routes traffic to pods with this label (matches Deployment)
 
